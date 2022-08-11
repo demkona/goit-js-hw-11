@@ -89,6 +89,7 @@ function onClick() {
     page += 1;
     getUrl(searchText, page);
 }
+
 function makePicturiesList(newCards) {
     const markup = newCards.map((item) => {
         return `<div class="photo-card">
@@ -117,13 +118,11 @@ function makePicturiesList(newCards) {
         captionsData: "alt",
         captionPosition: "250",
     });
-
-    const { height: cardHeight } = document
-        .querySelector(".gallery")
-        .firstElementChild.getBoundingClientRect();
-
-    window.scrollBy({
-        top: cardHeight * 2,
-        behavior: "smooth",
-    });
 };
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight) {
+        onClick()
+    }
+});
